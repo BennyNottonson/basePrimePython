@@ -45,7 +45,6 @@ if __name__ == '__main__':
             holder = a
             a = primeFactors(a)
             print(f'The Base Prime Representation of {holder} is {getBaseRep(a)}, {a}')
-        except ValueError as e:
-            print(e)
+        except ValueError:
             print('The input must be a number')
     print("Exit")
