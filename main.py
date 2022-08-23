@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import sys
+import cProfile
+import math
 
 df = pd.read_csv('1mmod.csv', sep=',', header=None).to_numpy()
 
@@ -19,16 +21,11 @@ def primeFactors(n):
     return factors
 
 
-def getBaseRep(n):
+def getBaseRep(factors):
     fin = 0
-    finStr = ''
-    factors = primeFactors(n)
-    for ax, b in enumerate(df):
-        fin += np.count_nonzero(factors == b) * (10 ** ax)
-        finStr = str(fin)[::-1]
-        if getRealRep(finStr) == n:
-            break
-    return finStr
+    for c in enumerate(factors):
+        fin += 10 ** int(list(np.where(df == c))[0][-1])
+    return str(fin)[::-1]
 
 
 def getRealRep(n):
@@ -40,13 +37,16 @@ def getRealRep(n):
 
 
 if __name__ == '__main__':
+    print("Enter a number to get its prime representation")
     for line in sys.stdin:
         if line.rstrip() == 'q':
             break
         try:
             a = int(line)
-            print(f'The Base Prime Representation of {a} is {getBaseRep(a)}, {primeFactors(a)}')
-        except ValueError:
+            holder = a
+            a = primeFactors(a)
+            print(f'The Base Prime Representation of {holder} is {getBaseRep(a)}, {a}')
+        except ValueError as e:
+            print(e)
             print('The input must be a number')
-
     print("Exit")
