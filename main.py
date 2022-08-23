@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import sys
-import cProfile
 import math
 
 df = pd.read_csv('1mmod.csv', sep=',', header=None).to_numpy()
@@ -23,14 +22,14 @@ def primeFactors(n):
 
 def getBaseRep(factors):
     fin = 0
-    for c in enumerate(factors):
+    for c in factors:
         fin += 10 ** int(list(np.where(df == c))[0][-1])
-    return str(fin)[::-1]
+    return str(fin)
 
 
 def getRealRep(n):
     fin = 1
-    for ax, c in enumerate(str(n)):
+    for ax, c in enumerate(str(n)[::-1]):
         if c != '0':
             fin *= df[ax] ** int(c)
     return fin
